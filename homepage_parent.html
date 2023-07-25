@@ -1,35 +1,50 @@
-<!DOCTYPE html>
 <html>
-  <style>
-    html {
-      background-image: url('coffee-salesforce.jpeg');
-      background-repeat: norepeat;
-      background-size: cover;
-    }
-  iframe{
-    width: 100%;
-    height:100%;
-    border: none;
-  }
-  </style>
   <head>
-    <title>Salesforce Chat - Iframes POC</title>
-  </head>
-  <script type="text/javascript" src="path/to/prototype.js"></script>
-  <script type="application/javascript">
-    window.onmessage = function(e) {
-      console.log(e.data.hasOwnProperty("frameHeight"));
-      if (e.data.hasOwnProperty("frameHeight")) {
-        var chatFrame = document.getElementById("chatFrame");
-        chatFrame.style.height = e.data.frameHeight + 20 + "px";
-        chatFrame.style.width = e.data.frameWidth + 20 + "px";
+    <style>
+      iframe {
+        height: 100%;
+        width: 100%;
       }
-    };
-  </script>
+    </style>
+     </head>
   <body>
-    <div style ="bottom: 0px; right: 0px; position: absolute;" >
-      <iframe id="chatFrame" src= "https://pflms--qa.sandbox.my.salesforce.com"></iframe>
-    </div>
+    <iframe id="chatFrame" style="width: 100%; height: 100%;"> </iframe>
+    <button onclick="reload()"> reload </button>
+    <script>
+      const getFrame = `
+        <html>
+        <head> 
+          <style>
+            iframe {
+              height: 100%;
+              width: 100%;
+            }
+          </style>
+        </head>
+        <body>
+          <iframe 
+            id="childFrame"
+            src='https://github.com/Harish182000/iFrameChatBot/blob/main/childpage_chat.html' 
+            style="width: 100%;height: 100%;">
+          </iframe>
+        </body>
+      </html>`;
+
+      const reload = ()=>{
+        console.log('>>>>>reloading');
+        const chatFrame = document.getElementById('chatFrame');
+
+        chatFrame.src = '';
+        const parent = chatFrame.parentNode;
+        parent.removeChild(chatFrame);
+        const newFrame = document.createElement("iframe");
+        parent.appendChild(newFrame);
+        newFrame.src = 'data:text/html;charset=utf-8,' + getFrame;
+      }
+
+      const chatFrame = document.getElementById('chatFrame');
+      chatFrame.src = 'data:text/html;charset=utf-8,' + getFrame;
+
+    </script>
   </body>
-  
 </html>
