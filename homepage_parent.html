@@ -1,47 +1,10 @@
 <html>
   <head>
-    <p>Hello Salesforce in Parent</p>
-    <style>
-      iframe {
-        height: 100%;
-        width: 100%;
-      }
-    </style>
-     </head>
+    
+  </head>
   <body>
     <iframe id="chatFrame" style="width: 100%; height: 100%;"> </iframe>
     <button onclick="reload()"> reload </button>
-    <script>
-      const getFrame = `
-        <html>
-        <head> 
-          <style>
-            iframe {
-              height: 100%;
-              width: 100%;
-            }
-          </style>
-        </head>
-        <body>
-        <iframe id="chatFrame" title="Chat" style="position: fixed; bottom: 0; right: 20px; width: 350px; height: 500px; border: none;" src="https://pflms--qa.sandbox.my.salesforce.com/embeddedservice/5.0/572D7000000Cmni/Chat"></iframe>
-        </body>
-      </html>`;
-
-      const reload = ()=>{
-        console.log('>>>>>reloading');
-        const chatFrame = document.getElementById('chatFrame');
-
-        chatFrame.src = '';
-        const parent = chatFrame.parentNode;
-        parent.removeChild(chatFrame);
-        const newFrame = document.createElement("iframe");
-        parent.appendChild(newFrame);
-        newFrame.src = 'data:text/html;charset=utf-8,' + getFrame;
-      }
-
-      const chatFrame = document.getElementById('chatFrame');
-      chatFrame.src = 'data:text/html;charset=utf-8,' + getFrame;
-
-    </script>
+    <p>Hello Salesforce in Parent</p>
   </body>
 </html>
